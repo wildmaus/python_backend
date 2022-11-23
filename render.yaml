@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: hello_app
+    env: python
+    buildCommand: "poetry install"
+    startCommand: "gunicorn hello_app.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 2
