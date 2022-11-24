@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 
+
 def say_hello(request):
     name = 'default name'
     message = 'default message'
