@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn hello_app.wsgi
+web: gunicorn hello_app.wsgi
