@@ -2,5 +2,5 @@
 venv/
 /*/migrations/
 /*/*/migrations/
-*/__pycache__
+__pycache__
 static/

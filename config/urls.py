@@ -1,4 +1,4 @@
-"""hello_app URL Configuration
+"""config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,9 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, re_path
-from . import views
+from django.contrib import admin
+from django.urls import path
+from task_manager.views import TaskView, TaskListView
+from rest_framework.routers import SimpleRouter
+
 
 urlpatterns = [
-    re_path(r'^$', views.say_hello),
+    path('admin/', admin.site.urls),
+    path('api/v1/task/', TaskListView.as_view()),
+    path('api/v1/task/<int:pk>/', TaskView.as_view()),
 ]
