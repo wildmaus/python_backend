@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Task, StatusChangeHistory
+from .models import Task, ChangeHistory
 
 admin.site.register(Task)
-admin.site.register(StatusChangeHistory)
+admin.site.register(ChangeHistory)

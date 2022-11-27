@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from .models import Task, StatusChangeHistory
+from .models import Task, ChangeHistory
+
+# TODO refactor, solve duplicates for one task
 
 
 class TaskListSerializer(serializers.ModelSerializer):
@@ -8,7 +10,10 @@ class TaskListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        exclude = ('date_created',)
+        extra_kwargs = {
+            'description': {'write_only': True}
+        }
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -20,10 +25,16 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_history(self, obj):
-        return HistorySerializer(obj.statuschangehistory_set, many=True).data
+        return HistorySerializer(obj.changehistory_set, many=True).data
 
 
 class HistorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = StatusChangeHistory
+        model = ChangeHistory
         fields = ('time', 'changed_to')
+
+
+class TaskInternalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        exclude = ('user', 'id', 'date_created')

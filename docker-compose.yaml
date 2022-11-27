@@ -3,9 +3,11 @@ version: '3.8'
 services:
   app:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
+    depends_on:
+      - db
 
   db:
     restart: always
@@ -23,8 +25,6 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    depends_on:
-      - app
 
   adminer:
     image: adminer

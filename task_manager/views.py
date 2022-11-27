@@ -18,4 +18,5 @@ class TaskView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user).prefetch_related('statuschangehistory_set')
+        return Task.objects.filter(user=self.request.user).prefetch_related('changehistory_set')
+# TODO swap to viewset
