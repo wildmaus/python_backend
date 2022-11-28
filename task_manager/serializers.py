@@ -1,8 +1,5 @@
 from rest_framework import serializers
-
 from .models import Task, ChangeHistory
-
-# TODO refactor, solve duplicates for one task
 
 
 class TaskListSerializer(serializers.ModelSerializer):
@@ -25,7 +22,7 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_history(self, obj):
-        return HistorySerializer(obj.changehistory_set, many=True).data
+        return HistorySerializer(obj.changehistory_set.all()[:2], many=True).data
 
 
 class HistorySerializer(serializers.ModelSerializer):

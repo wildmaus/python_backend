@@ -1,7 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_save
 
 
 class Task(models.Model):
@@ -14,10 +12,12 @@ class Task(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    # TODO try IntegerChoices then
     status = models.CharField(max_length=10, choices=STATUS)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     date_end = models.DateField(null=True, blank=True)
+
+    class Meta:
+        ordering = ('-date_created',)
 
     def __srt__(self):
         return f"{self.title}: {self.status}"
